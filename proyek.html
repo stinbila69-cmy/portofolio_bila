@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Proyek pilihan Siti Nabila: website toko aksesoris BILLAYA, aplikasi sewa lapangan futsal, dan website portofolio pribadi.">
+  <title>Proyek | Siti Nabila</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --latar: #070b18;
+      --kaca: rgba(255, 255, 255, 0.05);
+      --kaca-kuat: rgba(255, 255, 255, 0.09);
+      --garis: rgba(255, 255, 255, 0.1);
+      --teks: #e8ecf8;
+      --redup: #9aa4c2;
+      --indigo: #6366f1;
+      --ungu: #a78bfa;
+      --cyan: #22d3ee;
+      --gradien: linear-gradient(90deg, #6366f1, #22d3ee);
+      --lebar-sidebar: 270px;
+      --judul: "Space Grotesk", "Segoe UI", sans-serif;
+      --isi: "Inter", "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--isi);
+      background: var(--latar);
+      color: var(--teks);
+      line-height: 1.7;
+      font-size: 0.97rem;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--judul);
+      line-height: 1.15;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 520px;
+      height: 520px;
+      top: -160px;
+      right: -120px;
+      background: rgba(99, 102, 241, 0.45);
+      animation: melayang 18s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      width: 440px;
+      height: 440px;
+      bottom: -140px;
+      left: 220px;
+      background: rgba(34, 211, 238, 0.28);
+      animation: melayang 22s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes melayang {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(-60px, 50px);
+      }
+    }
+
+    /* ===== Sidebar & topbar ===== */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--lebar-sidebar);
+      background: rgba(10, 15, 33, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-right: 1px solid var(--garis);
+      padding: 2.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 30;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-profil {
+      text-align: center;
+      padding-bottom: 1.7rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--garis);
+    }
+
+    .sidebar-profil img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      padding: 3px;
+      background: var(--gradien);
+    }
+
+    .sidebar-profil h2 {
+      font-size: 1.25rem;
+    }
+
+    .sidebar-profil p {
+      font-size: 0.85rem;
+      color: var(--redup);
+    }
+
+    .menu {
+      list-style: none;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .menu a {
+      display: block;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      color: var(--redup);
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .menu a:hover {
+      background: var(--kaca);
+      color: #ffffff;
+    }
+
+    .menu a.aktif {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.5);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .sidebar-kaki {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--redup);
+    }
+
+    .topbar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: rgba(10, 15, 33, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--garis);
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.1rem;
+      z-index: 20;
+    }
+
+    .topbar strong {
+      font-family: var(--judul);
+      font-size: 1.1rem;
+    }
+
+    .tombol-menu {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--garis);
+      background: var(--kaca);
+      color: #ffffff;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .lapisan {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(3, 6, 16, 0.65);
+      z-index: 25;
+    }
+
+    .lapisan.tampil {
+      display: block;
+    }
+
+    /* ===== Konten umum ===== */
+    .konten {
+      margin-left: var(--lebar-sidebar);
+      padding: 3.2rem clamp(1.2rem, 5vw, 4rem) 2rem;
+      max-width: calc(var(--lebar-sidebar) + 1150px);
+    }
+
+    section {
+      margin-bottom: 5.5rem;
+    }
+
+    .judul-bagian {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+
+    .judul-bagian h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+    }
+
+    .judul-bagian h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    .judul-bagian h1::after,
+    .judul-bagian h2::after {
+      content: "";
+      display: block;
+      width: 56px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--gradien);
+      margin-top: 0.6rem;
+    }
+
+    .judul-bagian p {
+      color: var(--redup);
+      max-width: 48ch;
+      margin-top: 0.7rem;
+    }
+
+    .kaca {
+      background: var(--kaca);
+      border: 1px solid var(--garis);
+      border-radius: 22px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+
+    .kaca:hover {
+      border-color: rgba(99, 102, 241, 0.55);
+      box-shadow: 0 12px 34px rgba(99, 102, 241, 0.18);
+    }
+
+    .chip-grup {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.4rem;
+    }
+
+    .chip {
+      background: var(--kaca);
+      border: 1px solid var(--garis);
+      padding: 0.28rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #cdd5ee;
+    }
+
+    .tombol-grup {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .tombol {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      background: var(--gradien);
+      color: #070b18;
+      border: 1px solid transparent;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .tombol:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(99, 102, 241, 0.45);
+    }
+
+    .tombol-garis {
+      background: transparent;
+      color: #ffffff;
+      border-color: var(--garis);
+    }
+
+    .tombol-garis:hover {
+      background: var(--kaca-kuat);
+      box-shadow: none;
+    }
+
+    .statistik {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 0 0 4.5rem;
+    }
+
+    .statistik div {
+      background: var(--kaca);
+      border: 1px solid var(--garis);
+      border-radius: 18px;
+      padding: 1.2rem 1.3rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .statistik strong {
+      display: block;
+      font-family: var(--judul);
+      font-size: 2.3rem;
+      line-height: 1.1;
+      background: var(--gradien);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .statistik span {
+      font-size: 0.88rem;
+      color: var(--redup);
+    }
+
+    /* ===== Filter ===== */
+    .tab-daftar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .tab {
+      font-family: inherit;
+      font-size: 0.93rem;
+      font-weight: 600;
+      padding: 0.6rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid var(--garis);
+      background: var(--kaca);
+      color: var(--redup);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .tab:hover {
+      color: #ffffff;
+    }
+
+    .tab[aria-pressed="true"] {
+      background: var(--gradien);
+      color: #070b18;
+      border-color: transparent;
+    }
+
+    /* ===== Kartu proyek ===== */
+    .daftar-proyek {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .proyek {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proyek[hidden] {
+      display: none;
+    }
+
+    .proyek img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #151c36;
+    }
+
+    .proyek-isi {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ungu);
+    }
+
+    .proyek h3 {
+      font-size: 1.3rem;
+      margin: 0.2rem 0 0;
+    }
+
+    .proyek p {
+      color: var(--redup);
+      font-size: 0.92rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .proyek .chip-grup {
+      margin-top: 0;
+    }
+
+    .proyek-aksi {
+      margin-top: auto;
+      padding-top: 1.1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--cyan);
+    }
+
+    a.proyek-aksi:hover {
+      color: #ffffff;
+    }
+
+    span.proyek-aksi {
+      color: var(--redup);
+    }
+
+    /* ===== Detail ringkas ===== */
+    .detail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .detail .kaca {
+      padding: 1.5rem;
+    }
+
+    .detail small {
+      color: var(--ungu);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .detail h3 {
+      font-size: 1.2rem;
+      margin: 0.3rem 0 0.8rem;
+    }
+
+    .detail ul {
+      list-style: none;
+    }
+
+    .detail li {
+      position: relative;
+      padding: 0.55rem 0 0.55rem 1.3rem;
+      border-top: 1px solid var(--garis);
+      color: var(--redup);
+      font-size: 0.92rem;
+    }
+
+    .detail li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.05rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--gradien);
+    }
+
+    .lanjut {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 2rem;
+    }
+
+    .lanjut p {
+      color: var(--redup);
+    }
+
+    .lanjut .tombol-grup {
+      margin-top: 0;
+    }
+
+    .kaki {
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--garis);
+      color: var(--redup);
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ===== Responsif ===== */
+    @media (max-width: 900px) {
+      .topbar {
+        display: flex;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.buka {
+        transform: translateX(0);
+      }
+
+      .konten {
+        margin-left: 0;
+        padding-top: 5.6rem;
+        max-width: none;
+      }
+
+      .lanjut {
+        padding: 1.4rem;
+      }
+
+      body::before {
+        width: 340px;
+        height: 340px;
+      }
+
+      body::after {
+        left: -60px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <strong>Siti Nabila</strong>
+    <button class="tombol-menu" aria-label="Buka menu navigasi" aria-expanded="false">&#9776;</button>
+  </header>
+  <div class="lapisan"></div>
+
+  <aside class="sidebar">
+    <div class="sidebar-profil">
+      <img src="bila.jpeg" alt="Foto profil Siti Nabila">
+      <h2>Siti Nabila</h2>
+      <p>Mahasiswa STTIKOM Insan Unggul</p>
+    </div>
+
+    <nav aria-label="Navigasi utama">
+      <ul class="menu">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="profil.html">Profil</a></li>
+        <li><a href="pendidikan.html">Pendidikan</a></li>
+        <li><a href="pengalaman.html">Pengalaman</a></li>
+        <li><a href="proyek.html" class="aktif" aria-current="page">Proyek</a></li>
+        <li><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </nav>
+
+    <p class="sidebar-kaki">STTIKOM Insan Unggul</p>
+  </aside>
+
+  <main class="konten">
+
+    <section>
+      <div class="judul-bagian">
+        <div>
+          <h1>Proyek</h1>
+          <p>Hasil pengerjaan yang saya buat sebagai bagian dari proses belajar web development dan pemrograman
+            aplikasi.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="statistik">
+      <div><strong>3</strong><span>Proyek pilihan</span></div>
+      <div><strong>2</strong><span>Website</span></div>
+      <div><strong>1</strong><span>Aplikasi desktop</span></div>
+      <div><strong>4</strong><span>Teknologi dipakai</span></div>
+    </div>
+
+    <section>
+      <div class="judul-bagian">
+        <div>
+          <h2>Karya saya</h2>
+          <p>Pilih kategori untuk menyaring proyek.</p>
+        </div>
+      </div>
+
+      <div class="tab-daftar" role="group" aria-label="Filter proyek">
+        <button class="tab" data-filter="semua" aria-pressed="true">Semua</button>
+        <button class="tab" data-filter="website" aria-pressed="false">Website</button>
+        <button class="tab" data-filter="aplikasi" aria-pressed="false">Aplikasi</button>
+      </div>
+
+      <div class="daftar-proyek">
+        <article class="kaca proyek" data-kategori="website">
+          <img src="project-billaya.jpeg" alt="Tampilan website BILLAYA Official Store">
+          <div class="proyek-isi">
+            <span class="label">Website</span>
+            <h3>BILLAYA Official Store</h3>
+            <p>Website toko aksesoris wanita bergaya modern dan minimalis, dengan halaman produk dan interaksi
+              sederhana.</p>
+            <div class="chip-grup"><span class="chip">HTML</span><span class="chip">CSS</span><span
+                class="chip">JavaScript</span></div>
+            <a class="proyek-aksi" href="https://stinbila69-cmy.github.io/billaa/" target="_blank"
+              rel="noopener noreferrer">Kunjungi website &rarr;</a>
+          </div>
+        </article>
+
+        <article class="kaca proyek" data-kategori="aplikasi">
+          <img src="pbo.jpeg" alt="Tampilan aplikasi sewa lapangan futsal">
+          <div class="proyek-isi">
+            <span class="label">Aplikasi</span>
+            <h3>Aplikasi Sewa Lapangan Futsal</h3>
+            <p>Aplikasi sederhana untuk membantu penyewaan lapangan futsal, dibuat sebagai proyek pembelajaran
+              pemrograman.</p>
+            <div class="chip-grup"><span class="chip">Visual Basic .NET</span></div>
+            <span class="proyek-aksi">Proyek pembelajaran</span>
+          </div>
+        </article>
+
+        <article class="kaca proyek" data-kategori="website">
+          <img src="cv.jpeg" alt="Tampilan website portofolio pribadi">
+          <div class="proyek-isi">
+            <span class="label">Website</span>
+            <h3>Personal Portfolio</h3>
+            <p>Website pribadi berisi profil, pendidikan, pengalaman, keahlian, dan proyek dalam beberapa halaman.</p>
+            <div class="chip-grup"><span class="chip">HTML</span><span class="chip">CSS</span><span
+                class="chip">JavaScript</span></div>
+            <span class="proyek-aksi">Website ini</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="judul-bagian">
+        <div>
+          <h2>Ringkasan proyek</h2>
+          <p>Tujuan dan hal yang saya pelajari dari tiap proyek.</p>
+        </div>
+      </div>
+
+      <div class="detail">
+        <article class="kaca">
+          <small>Website</small>
+          <h3>BILLAYA Official Store</h3>
+          <ul>
+            <li>Toko online aksesoris wanita</li>
+            <li>Tampilan modern dan minimalis</li>
+            <li>Halaman produk dan interaksi dengan JavaScript</li>
+            <li>Dipublikasikan lewat GitHub Pages</li>
+          </ul>
+        </article>
+        <article class="kaca">
+          <small>Aplikasi</small>
+          <h3>Sewa Lapangan Futsal</h3>
+          <ul>
+            <li>Membantu proses penyewaan lapangan</li>
+            <li>Dibuat dengan Visual Basic .NET</li>
+            <li>Melatih logika pemrograman aplikasi</li>
+          </ul>
+        </article>
+        <article class="kaca">
+          <small>Website</small>
+          <h3>Personal Portfolio</h3>
+          <ul>
+            <li>Beberapa halaman dengan navigasi sidebar</li>
+            <li>Tampilan responsif untuk ponsel</li>
+            <li>Dibuat dengan HTML, CSS, dan JavaScript</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="kaca lanjut">
+      <p>Tertarik berdiskusi atau berkolaborasi?</p>
+      <div class="tombol-grup">
+        <a href="pengalaman.html" class="tombol tombol-garis">Lihat pengalaman</a>
+        <a href="kontak.html" class="tombol">Hubungi saya</a>
+      </div>
+    </section>
+
+    <footer class="kaki">
+      <span>&copy; 2026 Siti Nabila</span>
+      <span>S1 Sistem Informasi</span>
+    </footer>
+  </main>
+
+  <script>
+    var sidebar = document.querySelector(".sidebar");
+    var lapisan = document.querySelector(".lapisan");
+    var tombolMenu = document.querySelector(".tombol-menu");
+
+    function tutupMenu() {
+      sidebar.classList.remove("buka");
+      lapisan.classList.remove("tampil");
+      tombolMenu.setAttribute("aria-expanded", "false");
+    }
+
+    tombolMenu.addEventListener("click", function () {
+      var terbuka = sidebar.classList.toggle("buka");
+      lapisan.classList.toggle("tampil", terbuka);
+      tombolMenu.setAttribute("aria-expanded", String(terbuka));
+    });
+
+    lapisan.addEventListener("click", tutupMenu);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") tutupMenu();
+    });
+
+    var tombolFilter = document.querySelectorAll(".tab");
+    var kartu = document.querySelectorAll(".proyek");
+
+    tombolFilter.forEach(function (tombol) {
+      tombol.addEventListener("click", function () {
+        var pilihan = tombol.getAttribute("data-filter");
+        tombolFilter.forEach(function (t) {
+          t.setAttribute("aria-pressed", String(t === tombol));
+        });
+        kartu.forEach(function (k) {
+          k.hidden = pilihan !== "semua" && k.getAttribute("data-kategori") !== pilihan;
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
